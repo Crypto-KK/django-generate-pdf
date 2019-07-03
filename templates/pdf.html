@@ -1,0 +1,70 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{{ name }}</title>
+    <style>
+        @page {
+            size: a4 portrait;
+            margin: 2.5cm 1.5cm;
+
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                bottom: 0;
+                margin-left: 0;
+                margin-right: 0;
+                height: 1cm;
+            }
+        }
+
+        #footer_content {
+            color: #666;
+            font-size: 10pt;
+            text-align: center;
+        }
+
+        h1 { text-align: center; }
+        th, td { vertical-align: top; }
+        /* ... additional styles here ... */
+    </style>
+</head>
+<body>
+<div>
+    <h1>{{ name }} 的简历</h1>
+    <br><br>
+    <table><tr>
+        <td>
+            <h2>联系方式</h2>
+            <p><b>手机号:</b> {{ phone }}</p>
+        </td>
+        <td align="right">
+{#            <img src="{% static 'images/icon.jpg' %}"#}
+{#                 width="100" height="100" />#}
+            <div style="width: 100px; height: 100px; background-color: black"></div>
+        </td>
+    </tr></table>
+
+    <h2>学历</h2>
+    {{ degree }}
+
+    <h2>教育经历</h2>
+    {{ edu }}
+
+    <h2>工作经历</h2>
+    {{ work }}
+
+    <h2>个人技能</h2>
+    {{ tech }}
+</div>
+<pdf:nextpage>
+<div>
+    This is an empty page to make a paper plane.
+</div>
+<div id="footer_content">
+    Document generated at {% now "Y-m-d" %} |
+    Page <pdf:pagenumber> of <pdf:pagecount>
+    | Smiley obtained from clipartextras.com
+</div>
+</body>
+</html>
